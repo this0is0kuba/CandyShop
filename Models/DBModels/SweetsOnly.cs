@@ -6,8 +6,10 @@
         public int Quantity { get; set; }
 
         //Relationships
-        public Sweetness Sweetness { get; set; }
-        public Order Order { get; set; }
+        public int SweetnessID { get; set; }
+        public Sweetness? Sweetness { get; set; }
+        public int OrderID { get; set; }
+        public Order? Order { get; set; }
 
         public SweetsOnly() { }
 

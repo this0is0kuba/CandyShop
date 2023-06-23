@@ -6,8 +6,10 @@
         public int Quantity { get; set; }
 
         //Relationships
-        public Kit kit { get; set; }
-        public Sweetness sweetness { get; set; }
+        public int KitId { get; set; }
+        public Kit? Kit { get; set; }
+        public int SweetnessID { get; set; }
+        public Sweetness? Sweetness { get; set; }
 
         public KitContent() { }
 

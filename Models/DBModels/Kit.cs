@@ -13,8 +13,8 @@ namespace CandyShop.Models.DBModels
         public int Discount { get; set; }
 
         //Relationships
-        public ICollection<KitContent> KitContents { get; set; }
-        public ICollection<KitsOnly> KitsOnly { get; set; }
+        public ICollection<KitContent> KitContents { get; set; } = new List<KitContent>();
+        public ICollection<KitsOnly> KitsOnly { get; set; } = new List<KitsOnly>();
 
         public Kit() { }
 

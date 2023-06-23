@@ -27,8 +27,8 @@ namespace CandyShop.Models.DBModels
         public string PostalCode { get; set; }
 
         //Relationships
-        public ICollection<SweetsOnly> SweetsOnly { get; set; }
-        public ICollection<KitsOnly> KitsOnly { get; set; }
+        public ICollection<SweetsOnly> SweetsOnly { get; set; } = new List<SweetsOnly>();
+        public ICollection<KitsOnly> KitsOnly { get; set; } = new List<KitsOnly>();
 
         public Order() { }
 

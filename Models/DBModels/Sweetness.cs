@@ -13,16 +13,16 @@ namespace CandyShop.Models.DBModels
         public int StockLevel { get; set; }
         [Range(0, 100)]
         public int Discount { get; set; }
+        public CategoryName CategoryName { get; set; }
 
         //Relationships
-        public Category Category { get; set; }
-        public ICollection<KitContent> kitContents { get; set; }
-        public ICollection<SweetsOnly> sweetsOnly { get; set; }
+        public ICollection<KitContent> kitContents { get; set; } = new List<KitContent>();
+        public ICollection<SweetsOnly> sweetsOnly { get; set; } = new List<SweetsOnly>();
 
         public Sweetness() { }
 
         public Sweetness(int iD, string name, string description, bool isVegan, bool isGluten, 
-            decimal currentPrice, int stockLevel, int discount)
+            decimal currentPrice, int stockLevel, int discount, CategoryName categoryName)
         {
             ID = iD;
             Name = name;
@@ -32,6 +32,15 @@ namespace CandyShop.Models.DBModels
             CurrentPrice = currentPrice;
             StockLevel = stockLevel;
             Discount = discount;
+            CategoryName = categoryName;
         }
+    }
+
+    public enum CategoryName
+    {
+        Chocolate,
+        GummyCandies,
+        Lollipops,
+        Candies
     }
 }

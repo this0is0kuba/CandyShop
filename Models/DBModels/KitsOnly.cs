@@ -6,8 +6,10 @@
         public int Quantity { get; set; }
 
         //Relationships
-        public Kit Kit { get; set; }
-        public Order Order { get; set; }
+        public int KitID { get; set; }
+        public Kit? Kit { get; set; }
+        public int OrderID { get; set; }
+        public Order? Order { get; set; }
 
         public KitsOnly() { }
 
