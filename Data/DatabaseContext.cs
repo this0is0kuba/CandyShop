@@ -7,11 +7,10 @@ namespace CandyShop.Data
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
-        public DbSet<Category> Categories { get; set; }
         public DbSet<Sweetness> Sweets { get; set; }
-        public DbSet<KitContent> KitContents { get; set; }
+        public DbSet<KitContent> KitContent { get; set; }
         public DbSet<Kit> Kits { get; set; }
-        public DbSet<KitsOnly> KitsOnlies { get; set; }
+        public DbSet<KitsOnly> KitsOnly { get; set; }
         public DbSet<SweetsOnly> SweetsOnly { get; set; }
         public DbSet<Order> Orders { get; set; }
     }

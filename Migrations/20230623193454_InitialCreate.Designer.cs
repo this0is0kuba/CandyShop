@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CandyShop.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230621225429_InitialCreate")]
+    [Migration("20230623193454_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,22 +24,6 @@ namespace CandyShop.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CandyShop.Models.DBModels.Category", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("categoryName")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Categories");
-                });
 
             modelBuilder.Entity("CandyShop.Models.DBModels.Kit", b =>
                 {
@@ -78,22 +62,22 @@ namespace CandyShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int>("KitId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("kitID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("sweetnessID")
+                    b.Property<int>("SweetnessID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("kitID");
+                    b.HasIndex("KitId");
 
-                    b.HasIndex("sweetnessID");
+                    b.HasIndex("SweetnessID");
 
-                    b.ToTable("KitContents");
+                    b.ToTable("KitContent");
                 });
 
             modelBuilder.Entity("CandyShop.Models.DBModels.KitsOnly", b =>
@@ -119,7 +103,7 @@ namespace CandyShop.Migrations
 
                     b.HasIndex("OrderID");
 
-                    b.ToTable("KitsOnlies");
+                    b.ToTable("KitsOnly");
                 });
 
             modelBuilder.Entity("CandyShop.Models.DBModels.Order", b =>
@@ -187,7 +171,7 @@ namespace CandyShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("CategoryID")
+                    b.Property<int>("CategoryName")
                         .HasColumnType("int");
 
                     b.Property<decimal>("CurrentPrice")
@@ -213,8 +197,6 @@ namespace CandyShop.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("CategoryID");
 
                     b.ToTable("Sweets");
                 });
@@ -247,21 +229,21 @@ namespace CandyShop.Migrations
 
             modelBuilder.Entity("CandyShop.Models.DBModels.KitContent", b =>
                 {
-                    b.HasOne("CandyShop.Models.DBModels.Kit", "kit")
+                    b.HasOne("CandyShop.Models.DBModels.Kit", "Kit")
                         .WithMany("KitContents")
-                        .HasForeignKey("kitID")
+                        .HasForeignKey("KitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CandyShop.Models.DBModels.Sweetness", "sweetness")
+                    b.HasOne("CandyShop.Models.DBModels.Sweetness", "Sweetness")
                         .WithMany("kitContents")
-                        .HasForeignKey("sweetnessID")
+                        .HasForeignKey("SweetnessID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("kit");
+                    b.Navigation("Kit");
 
-                    b.Navigation("sweetness");
+                    b.Navigation("Sweetness");
                 });
 
             modelBuilder.Entity("CandyShop.Models.DBModels.KitsOnly", b =>
@@ -283,17 +265,6 @@ namespace CandyShop.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("CandyShop.Models.DBModels.Sweetness", b =>
-                {
-                    b.HasOne("CandyShop.Models.DBModels.Category", "Category")
-                        .WithMany("Sweets")
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("CandyShop.Models.DBModels.SweetsOnly", b =>
                 {
                     b.HasOne("CandyShop.Models.DBModels.Order", "Order")
@@ -311,11 +282,6 @@ namespace CandyShop.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Sweetness");
-                });
-
-            modelBuilder.Entity("CandyShop.Models.DBModels.Category", b =>
-                {
-                    b.Navigation("Sweets");
                 });
 
             modelBuilder.Entity("CandyShop.Models.DBModels.Kit", b =>

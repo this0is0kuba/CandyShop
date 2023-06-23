@@ -12,19 +12,6 @@ namespace CandyShop.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    categoryName = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Kits",
                 columns: table => new
                 {
@@ -78,21 +65,15 @@ namespace CandyShop.Migrations
                     CurrentPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StockLevel = table.Column<int>(type: "int", nullable: false),
                     Discount = table.Column<int>(type: "int", nullable: false),
-                    CategoryID = table.Column<int>(type: "int", nullable: false)
+                    CategoryName = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sweets", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Sweets_Categories_CategoryID",
-                        column: x => x.CategoryID,
-                        principalTable: "Categories",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "KitsOnlies",
+                name: "KitsOnly",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -103,15 +84,15 @@ namespace CandyShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_KitsOnlies", x => x.ID);
+                    table.PrimaryKey("PK_KitsOnly", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_KitsOnlies_Kits_KitID",
+                        name: "FK_KitsOnly_Kits_KitID",
                         column: x => x.KitID,
                         principalTable: "Kits",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_KitsOnlies_Orders_OrderID",
+                        name: "FK_KitsOnly_Orders_OrderID",
                         column: x => x.OrderID,
                         principalTable: "Orders",
                         principalColumn: "ID",
@@ -119,27 +100,27 @@ namespace CandyShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "KitContents",
+                name: "KitContent",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    kitID = table.Column<int>(type: "int", nullable: false),
-                    sweetnessID = table.Column<int>(type: "int", nullable: false)
+                    KitId = table.Column<int>(type: "int", nullable: false),
+                    SweetnessID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_KitContents", x => x.ID);
+                    table.PrimaryKey("PK_KitContent", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_KitContents_Kits_kitID",
-                        column: x => x.kitID,
+                        name: "FK_KitContent_Kits_KitId",
+                        column: x => x.KitId,
                         principalTable: "Kits",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_KitContents_Sweets_sweetnessID",
-                        column: x => x.sweetnessID,
+                        name: "FK_KitContent_Sweets_SweetnessID",
+                        column: x => x.SweetnessID,
                         principalTable: "Sweets",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -173,29 +154,24 @@ namespace CandyShop.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_KitContents_kitID",
-                table: "KitContents",
-                column: "kitID");
+                name: "IX_KitContent_KitId",
+                table: "KitContent",
+                column: "KitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_KitContents_sweetnessID",
-                table: "KitContents",
-                column: "sweetnessID");
+                name: "IX_KitContent_SweetnessID",
+                table: "KitContent",
+                column: "SweetnessID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_KitsOnlies_KitID",
-                table: "KitsOnlies",
+                name: "IX_KitsOnly_KitID",
+                table: "KitsOnly",
                 column: "KitID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_KitsOnlies_OrderID",
-                table: "KitsOnlies",
+                name: "IX_KitsOnly_OrderID",
+                table: "KitsOnly",
                 column: "OrderID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sweets_CategoryID",
-                table: "Sweets",
-                column: "CategoryID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SweetsOnly_OrderID",
@@ -212,10 +188,10 @@ namespace CandyShop.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "KitContents");
+                name: "KitContent");
 
             migrationBuilder.DropTable(
-                name: "KitsOnlies");
+                name: "KitsOnly");
 
             migrationBuilder.DropTable(
                 name: "SweetsOnly");
@@ -228,9 +204,6 @@ namespace CandyShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sweets");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
         }
     }
 }
