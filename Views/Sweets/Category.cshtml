@@ -1,13 +1,15 @@
-﻿@model IEnumerable<CandyShop.Models.DBModels.Kit>
+﻿@model IEnumerable<CandyShop.Models.DBModels.Sweetness>
 
-<h1>Kits</h1>
+<h1>@ViewData["categoryName"]</h1>
 
 <div class="product-container">
     @foreach (var item in Model)
     {
         <div class="product">
-            <a href="@Url.Action("Details", "Kits", new {id = item.ID})">
-                <div class="photo">
+            <a href="@Url.Action("Details", "Sweets", new {id = item.ID})">
+                <div class="justify-content-center align-items-center d-flex">
+                    <div class="photo">
+                    </div>
                 </div>
             </a>
             <div class="text-center">

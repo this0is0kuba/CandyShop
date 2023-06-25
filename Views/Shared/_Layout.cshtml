@@ -9,8 +9,13 @@
     <link rel="stylesheet" href="~/CandyShop.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header class="header">
+        <div class="head-photo justify-content-center align-items-center d-flex">
+            <div class="text-center">
+                <h1>Candy Shop</h1>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CandyShop</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -19,26 +24,57 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Sweets" asp-action="Category" asp-route-categoryName="Chocolate">Chocolate</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Sweets" asp-action="Category" asp-route-categoryName="GummyCandies">GummyCandies</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Sweets" asp-action="Category" asp-route-categoryName="Lollipops">Lollipops</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Sweets" asp-action="Category" asp-route-categoryName="Candies">Candies</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Kits" asp-action="Index">Kits</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="d-flex flex-row ">
+        <nav class="w-15 p-3 border box-shadow position-sticky sticky-top" style="height: 300px;">
+                <ul class="navbar-nav container-fluid">
+                    <li>
+                        <a class="nav-link text-dark underline mt-1" asp-area="" asp-controller="Sweets" asp-action="Category" asp-route-categoryName="Chocolate">Chocolate</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark underline mt-1" asp-area="" asp-controller="Sweets" asp-action="Category" asp-route-categoryName="GummyCandies">GummyCandies</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark underline mt-1" asp-area="" asp-controller="Sweets" asp-action="Category" asp-route-categoryName="Lollipops">Lollipops</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark underline mt-1" asp-area="" asp-controller="Sweets" asp-action="Category" asp-route-categoryName="Candies">Candies</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark underline mt-1" asp-area="" asp-controller="Kits" asp-action="Index">Kits</a>
+                    </li>
+                </ul>
+            </nav>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
+    
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - CandyShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - CandyShop
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
