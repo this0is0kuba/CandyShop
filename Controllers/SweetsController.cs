@@ -22,25 +22,44 @@ namespace CandyShop.Controllers
         // GET: Sweets
         public async Task<IActionResult> Index()
         {
-              return _context.Sweets != null ? 
-                          View(await _context.Sweets.ToListAsync()) :
-                          Problem("Entity set 'DatabaseContext.Sweets'  is null.");
+            if (_context.Sweets == null)
+                return Problem("Sorry, there are no product that meet your request");
+
+            return View(await _context.Sweets.ToListAsync());
+        }
+
+        public async Task<IActionResult> Category(CategoryName categoryName)
+        {
+            if (_context.Sweets == null)    
+                return Problem("Sorry, there are no product that meet your request");
+
+            ViewData["categoryName"] = categoryName;
+
+            return View(await _context.Sweets.Where(s => s.CategoryName.Equals(categoryName)).ToListAsync());
         }
 
         // GET: Sweets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Sweets == null)
-            {
                 return NotFound();
-            }
 
-            var sweetness = await _context.Sweets
-                .FirstOrDefaultAsync(m => m.ID == id);
+
+            var sweetness = await _context.Sweets.FirstOrDefaultAsync(m => m.ID == id);
             if (sweetness == null)
-            {
                 return NotFound();
-            }
+
+
+            var mySweetness = await _context.Sweets.FirstOrDefaultAsync(s => s.ID == id);
+            if(mySweetness == null)
+                return NotFound();
+
+            ViewData["name"] = mySweetness.Name;
+            ViewData["description"] = mySweetness.Description;
+            ViewData["price"] = mySweetness.CurrentPrice;
+            ViewData["stockLevel"] = mySweetness.StockLevel;
+            ViewData["vegan"] = mySweetness.IsVegan;
+            ViewData["gluten"] = mySweetness.IsGluten;
 
             return View(sweetness);
         }
@@ -56,7 +75,7 @@ namespace CandyShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Description,IsVegan,IsGluten,CurrentPrice,StockLevel,Discount,CategoryName")] Sweetness sweetness)
+        public async Task<IActionResult> Create(Sweetness sweetness)
         {
             if (ModelState.IsValid)
             {
