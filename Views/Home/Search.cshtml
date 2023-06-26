@@ -1,0 +1,58 @@
+﻿@model CandyShop.Models.Products
+
+@if (Model.Kits == null && Model.Sweets == null) 
+{
+    <h1>nothing found</h1>
+}
+else
+{
+    <h1>Matches found</h1>
+}
+
+<div class="product-container">
+    @foreach (var item in Model.Kits)
+    {
+        <div class="product">
+            <a href="@Url.Action("Details", "Kits", new {id = item.ID})">
+                <div class="photo">
+                </div>
+            </a>
+            <div class="text-center">
+                @Html.DisplayFor(modelItem => item.Name)
+            </div>
+            <div class="text-center">
+                @Html.DisplayFor(modelItem => item.CurrentPrice)
+                $
+            </div>
+            <div class="add-to-basket">
+                <button style="background-color: #FF78C4;">
+                    Add to basket
+                </button>
+            </div>
+        </div>
+    }
+    @foreach (var item in Model.Sweets)
+    {
+        <div class="product">
+            <a href="@Url.Action("Details", "Sweets", new {id = item.ID})">
+                <div class="justify-content-center align-items-center d-flex">
+                    <div class="photo">
+                    </div>
+                </div>
+            </a>
+            <div class="text-center">
+                @Html.DisplayFor(modelItem => item.Name)
+            </div>
+            <div class="text-center">
+                @Html.DisplayFor(modelItem => item.CurrentPrice)
+                $
+            </div>
+            <div class="add-to-basket">
+                <button class="rounded" style="background-color: #FF78C4;">
+                    Add to basket
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
