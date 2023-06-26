@@ -12,10 +12,10 @@
         if (stockLevelInt > 1)
             stockLevelAnnouncement = "Low";
 
-        if (stockLevelInt > 500)
+        if (stockLevelInt > 100)
             stockLevelAnnouncement = "Medium";
 
-        if (stockLevelInt > 5000)
+        if (stockLevelInt > 500)
             stockLevelAnnouncement = "High";
     }
 }
@@ -24,29 +24,34 @@
     <h3>@ViewData["name"]</h3>
     <hr />
     <div class="container" style="display: flex; flex-wrap: wrap;">
-        <div class="first-photo">
-            <div class="bg-dark" style="width: 300px; height: 400px">
+
+        <div>
+            <div style="width: 360px; height: 480px;">
 
             </div>
         </div>
-        <div class="second-description ml-2">
+
+        <div style="width: 10px; height:480px"> </div>
+
+        <div>
             <div class="m-1">
                 <h4>Description:</h4>
                 @ViewData["description"]
             </div>
             <div class="m-1">
-                isGluten: @ViewData["gluten"], isVegan: @ViewData["vegan"]
+                <b>isGluten:</b> @ViewData["gluten"], <b>isVegan:</b> @ViewData["vegan"]
             </div>
             <hr />
             <div class="m-1">
-                StockLevel: @stockLevelAnnouncement
+                <b>StockLevel:</b> @stockLevelAnnouncement
             </div>
             <div style="display: flex; flex-wrap: wrap;">
                 <div class="m-1">
-                    Price: @ViewData["price"] $
+                    <b>Price:</b> @ViewData["price"] $
                 </div>
-                <button class="m-1">Add to basket</button>
+                <button class="m-1 rounded" style="background-color: #FF78C4;">Add to basket</button>
             </div>
         </div>
+
     </div>
 </div>
