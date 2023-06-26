@@ -30,11 +30,11 @@ namespace CandyShop.Controllers
             if (searchPhrase == null)
                 return View("Index");
 
-            var sweetsTable = _context.Sweets.
-                Where(s => s.Name.Contains(searchPhrase) || s.Description.Contains(searchPhrase)).ToList();
+            var sweetsTable = await _context.Sweets.
+                Where(s => s.Name.Contains(searchPhrase) || s.Description.Contains(searchPhrase)).ToListAsync();
 
-            var kitsTable = _context.Kits.
-                Where(k => k.Name.Contains(searchPhrase) || k.Description.Contains(searchPhrase)).ToList();
+            var kitsTable = await _context.Kits.
+                Where(k => k.Name.Contains(searchPhrase) || k.Description.Contains(searchPhrase)).ToListAsync();
 
             var products = new Products
             {
@@ -43,6 +43,11 @@ namespace CandyShop.Controllers
             };
 
             return View(products);
+        }
+
+        public ActionResult Basket()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
