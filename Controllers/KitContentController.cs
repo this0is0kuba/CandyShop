@@ -67,7 +67,7 @@ namespace CandyShop.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KitId"] = new SelectList(_context.Kits, "ID", "ID", kitContent.KitId);
+            ViewData["KitId"] = new SelectList(_context.Kits, "ID", "ID", kitContent.KitID);
             ViewData["SweetnessID"] = new SelectList(_context.Sweets, "ID", "ID", kitContent.SweetnessID);
             return View(kitContent);
         }
@@ -85,7 +85,7 @@ namespace CandyShop.Controllers
             {
                 return NotFound();
             }
-            ViewData["KitId"] = new SelectList(_context.Kits, "ID", "ID", kitContent.KitId);
+            ViewData["KitId"] = new SelectList(_context.Kits, "ID", "ID", kitContent.KitID);
             ViewData["SweetnessID"] = new SelectList(_context.Sweets, "ID", "ID", kitContent.SweetnessID);
             return View(kitContent);
         }
@@ -122,7 +122,7 @@ namespace CandyShop.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KitId"] = new SelectList(_context.Kits, "ID", "ID", kitContent.KitId);
+            ViewData["KitId"] = new SelectList(_context.Kits, "ID", "ID", kitContent.KitID);
             ViewData["SweetnessID"] = new SelectList(_context.Sweets, "ID", "ID", kitContent.SweetnessID);
             return View(kitContent);
         }

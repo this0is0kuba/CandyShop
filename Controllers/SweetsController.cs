@@ -49,17 +49,12 @@ namespace CandyShop.Controllers
             if (sweetness == null)
                 return NotFound();
 
-
-            var mySweetness = await _context.Sweets.FirstOrDefaultAsync(s => s.ID == id);
-            if(mySweetness == null)
-                return NotFound();
-
-            ViewData["name"] = mySweetness.Name;
-            ViewData["description"] = mySweetness.Description;
-            ViewData["price"] = mySweetness.CurrentPrice;
-            ViewData["stockLevel"] = mySweetness.StockLevel;
-            ViewData["vegan"] = mySweetness.IsVegan;
-            ViewData["gluten"] = mySweetness.IsGluten;
+            ViewData["name"] = sweetness.Name;
+            ViewData["description"] = sweetness.Description;
+            ViewData["price"] = sweetness.CurrentPrice;
+            ViewData["stockLevel"] = sweetness.StockLevel;
+            ViewData["vegan"] = sweetness.IsVegan;
+            ViewData["gluten"] = sweetness.IsGluten;
 
             return View(sweetness);
         }
