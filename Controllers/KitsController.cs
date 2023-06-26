@@ -35,12 +35,38 @@ namespace CandyShop.Controllers
                 return NotFound();
             }
 
-            var kit = await _context.Kits
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var kit = await _context.Kits.FirstOrDefaultAsync(m => m.ID == id);
             if (kit == null)
             {
                 return NotFound();
             }
+
+            ViewData["name"] = kit.Name;
+            ViewData["description"] = kit.Description;
+            ViewData["price"] = kit.CurrentPrice;
+            ViewData["stockLevel"] = kit.StockLevel;
+
+            var query = from kitObject in _context.Kits
+                        join kitsContent in _context.KitContent on kitObject.ID equals kitsContent.KitID
+                        join sweetnessObject in _context.Sweets on kitsContent.SweetnessID equals sweetnessObject.ID
+                        where kitObject.ID == id
+                        select new
+                        {
+                            sweetnessObject.Name,
+                            kitsContent.Quantity
+                        };
+
+
+            int i = 0;
+            foreach (var sweetness in query.ToList())
+            {
+                ViewData["sweetnessName" + i] = sweetness.Name;
+                ViewData["sweetnessQuantity" + i] = sweetness.Quantity;
+
+                i++;
+            }
+
+            ViewData["numberOfSweets"] = i;
 
             return View(kit);
         }

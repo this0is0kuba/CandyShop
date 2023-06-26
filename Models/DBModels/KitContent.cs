@@ -6,7 +6,7 @@
         public int Quantity { get; set; }
 
         //Relationships
-        public int KitId { get; set; }
+        public int KitID { get; set; }
         public Kit? Kit { get; set; }
         public int SweetnessID { get; set; }
         public Sweetness? Sweetness { get; set; }

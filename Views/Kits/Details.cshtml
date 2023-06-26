@@ -1,48 +1,69 @@
 ﻿@model CandyShop.Models.DBModels.Kit
 
 @{
-    ViewData["Title"] = "Details";
+    string stockLevelAnnouncement = "out of stock";
+
+    var stockLevelObject = ViewData["stockLevel"];
+    if (stockLevelObject != null)
+    {
+        string stockLevelString = stockLevelObject.ToString();
+        int stockLevelInt = int.Parse(stockLevelString);
+
+        if (stockLevelInt > 1)
+            stockLevelAnnouncement = "Low";
+
+        if (stockLevelInt > 30)
+            stockLevelAnnouncement = "Medium";
+
+        if (stockLevelInt > 100)
+            stockLevelAnnouncement = "High";
+    }
+
+    int ?limit = (int)ViewData["numberOfSweets"];
+    if (limit == null)
+        limit = 0;
+
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4>Kit</h4>
+    <h3>@ViewData["name"]</h3>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CurrentPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CurrentPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StockLevel)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StockLevel)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Discount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Discount)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="container" style="display: flex; flex-wrap: wrap;">
+
+        <div>
+            <div style="width: 360px; height: 480px;">
+            </div>
+        </div>
+
+        <div style="width: 10px; height:480px"> </div>
+
+        <div>
+            <div class="m-1">
+                <h4>Description:</h4>
+                @ViewData["description"]
+            </div>
+            <hr />
+            <div class="m-1">
+                <b>The kit consists of: </b>
+                <ul>
+                    @for (int i = 0; i < limit; i++) {
+                        <li>
+                            @ViewData["sweetnessName" + i]: @ViewData["sweetnessQuantity" + 1]   
+                        </li>
+                    }
+                </ul>
+            </div>
+            <hr />
+            <div class="m-1">
+                <b>StockLevel:</b> @stockLevelAnnouncement
+            </div>
+            <div style="display: flex; flex-wrap: wrap;">
+                <div class="m-1">
+                    <b>Price:</b> @ViewData["price"] $
+                </div>
+                <button class="m-1 rounded" style="background-color: #FF78C4;">Add to basket</button>
+            </div>
+        </div>
+
+    </div>
 </div>
