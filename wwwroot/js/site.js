@@ -12,12 +12,10 @@ function setCookie(name) {
     let value = parseInt(getValueOfCookie(name)) + 1;
 
     document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=None; Secure`;
-    displayAllCookies();
 }
 
 function deleteCookie(name) {
     document.cookie = `${name}=; expires='Thu, 01 Jan 1970 00:00:00 UTC'; path=/`;
-    displayAllCookies();
 }
 
 function getValueOfCookie(name) {
