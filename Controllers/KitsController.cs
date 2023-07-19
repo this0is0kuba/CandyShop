@@ -41,6 +41,7 @@ namespace CandyShop.Controllers
                 return NotFound();
             }
 
+            ViewData["id"] = id;
             ViewData["name"] = kit.Name;
             ViewData["description"] = kit.Description;
             ViewData["price"] = kit.CurrentPrice;

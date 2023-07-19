@@ -49,6 +49,7 @@ namespace CandyShop.Controllers
             if (sweetness == null)
                 return NotFound();
 
+            ViewData["id"] = id;
             ViewData["name"] = sweetness.Name;
             ViewData["description"] = sweetness.Description;
             ViewData["price"] = sweetness.CurrentPrice;

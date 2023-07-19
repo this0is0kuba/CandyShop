@@ -61,7 +61,9 @@
                 <div class="m-1">
                     <b>Price:</b> @ViewData["price"] $
                 </div>
-                <button class="m-1 rounded" style="background-color: #FF78C4;">Add to basket</button>
+                <button class="m-1 rounded" style="background-color: #FF78C4;" onclick="setCookie('@(Convert.ToInt32(ViewData["id"]) + 1000)')">
+                    Add to basket
+                </button>
             </div>
         </div>
 
