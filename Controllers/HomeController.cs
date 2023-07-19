@@ -3,6 +3,7 @@ using CandyShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Runtime.ExceptionServices;
 
 namespace CandyShop.Controllers
 {
@@ -47,6 +48,49 @@ namespace CandyShop.Controllers
 
         public ActionResult Basket()
         {
+            var allCookies = Request.Cookies;
+
+            if (allCookies.Count > 0)
+            {
+                foreach (var cookie in allCookies)
+                {
+                    if (cookie.Key.Equals(".AspNetCore.Antiforgery.o3MzoDseqwg"))
+                        continue;
+
+                    int id = Convert.ToInt32(cookie.Key);
+                    int amount = Convert.ToInt32(cookie.Value);
+                    string name;
+                    string kit;
+                    decimal price;
+                    decimal totalPrice;
+                    string link;
+                        
+                    if(id > 1000)
+                    {
+                        id = id - 1000;
+                        var myKit = _context.Kits.First(k => k.ID == id);
+
+                        kit = "Kit";
+                        name = myKit.Name;
+                        price = myKit.CurrentPrice;
+                        totalPrice = price * amount;
+                        link = "https://localhost:7180/Kits/Details/" + id;
+                    }
+                    else
+                    {
+                        var mySweetness = _context.Sweets.First(s => s.ID == id);
+
+                        kit = "Sweetness";
+                        name = mySweetness.Name;
+                        price = mySweetness.CurrentPrice;
+                        totalPrice = price * amount;
+                        link = "https://localhost:7180/Sweets/Details/" + id;
+                    }
+                        
+                    ViewData[cookie.Key] = cookie.Value + ";" + kit + ";" + name + ";" + price + ";" + totalPrice + ";" + link;
+                }
+            }
+
             return View();
         }
 

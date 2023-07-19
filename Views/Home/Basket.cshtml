@@ -10,5 +10,22 @@
     </tr>
 
     <tbody id="basket">
+        @foreach (var item in ViewData)
+        {
+            var data = item.Value.ToString().Split(";");
+
+            <tr>
+                <td><a href="@data[5]" class="product-link">@data[2]</a></td>
+                <td>@data[0]</td>
+                <td>@data[3]</td>
+                <td>@data[4]</td>
+                <td>@data[1]</td>
+                <td>
+                    <button onclick="deleteCookie('@item.Key')" class="bg-danger">
+                        Remove
+                    </button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
