@@ -2,7 +2,7 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-//deleteCookie("1 + 1000");
+
 displayAllCookies();
 function setCookie(name) {
     const date = new Date();
