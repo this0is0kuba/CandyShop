@@ -87,8 +87,39 @@ tr:nth-child(even) {
     background-color: #FFB8E4;
 }
 
-.product-link {
+tr a.product-link {
     color: black;
     text-decoration: none;
     font-weight: bold;
+}
+
+tr a.product-link:hover {
+    color: black;
+    text-decoration: underline;
+    text-decoration-color: #FFB8E4;
+    text-decoration-thickness: 2px;
+}
+
+tr:nth-child(even) a.product-link:hover {
+    color: black;
+    text-decoration: underline;
+    text-decoration-color: white;
+    text-decoration-thickness: 2px;
+}
+
+tr button {
+    background-color: #FF78C4;
+}
+
+tr:nth-child(odd) button {
+    background-color: #FF78C4;
+}
+
+.cart-button {
+    background-color: #FF78C4;
+    border-radius: 5px;
+}
+
+.cart-button:active {
+    background-color: #FFB8E4;
 }

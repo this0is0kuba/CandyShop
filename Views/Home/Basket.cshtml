@@ -4,28 +4,36 @@
         <th>Product</th>
         <th>Amount</th>
         <th>Price</th>
-        <th>Total price</th>
+        <th>Sum price</th>
         <th>Description</th>
-        <th>Remove from cart</th>
+        <th>Actions</th>
     </tr>
 
     <tbody id="basket">
         @foreach (var item in ViewData)
         {
-            var data = item.Value.ToString().Split(";");
+            if (item.Key.ToString() != "totalCost")
+            {
+                var data = item.Value.ToString().Split(";");
 
-            <tr>
-                <td><a href="@data[5]" class="product-link">@data[2]</a></td>
-                <td>@data[0]</td>
-                <td>@data[3]</td>
-                <td>@data[4]</td>
-                <td>@data[1]</td>
-                <td>
-                    <button onclick="deleteCookie('@item.Key')" class="bg-danger">
-                        Remove
-                    </button>
-                </td>
-            </tr>
+                <tr>
+                    <td><a href="@data[5]" class="product-link">@data[2]</a></td>
+                    <td>@data[0]</td>
+                    <td>@data[3]</td>
+                    <td>@data[4]</td>
+                    <td>@data[1]</td>
+                    <td>
+                        <button class="cart-button" onclick="addOneProduct(event, '@item.Key')">+</button>
+                        <button class="cart-button" onclick="removeOneProduct(event, '@item.Key')">-</button>
+                        <button class="cart-button" onclick="deleteCookie('@item.Key')" style="float: right;">
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
+
+<h3>Total Cost:</h3>
+<h3 id="totalCost">@ViewData["totalCost"]</h3>

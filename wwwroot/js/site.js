@@ -3,7 +3,50 @@
 
 // Write your JavaScript code.
 
-/*displayAllCookies();*/
+function addOneProduct(ev, name) {
+    let amount = parseInt(ev.target.parentNode.parentNode.children[1].textContent);
+
+    let newValue = amount + 1;
+    ev.target.parentNode.parentNode.children[1].textContent = newValue;
+
+    if (newValue == 2)
+        ev.target.parentNode.children[1].disabled = false;
+
+    let price = parseFloat(ev.target.parentNode.parentNode.children[2].textContent.replace(",", "."))
+    ev.target.parentNode.parentNode.children[3].textContent = Math.ceil(price * newValue * 100) / 100;
+
+    const totalCost = document.querySelector('#totalCost');
+    totalCost.textContent = Math.ceil((parseFloat(totalCost.textContent.replace(",", ".")) + price) * 100) / 100;
+
+    setCookie(name);
+}
+
+function removeOneProduct(ev, name) {
+
+    const date = new Date();
+    date.setTime(date.getTime() + (3 * 60 * 60 * 1000));
+
+    let value = parseInt(getValueOfCookie(name)) - 1;
+
+    let expires = "expires=" + date.toUTCString();
+
+    let newValue = parseInt(ev.target.parentNode.parentNode.children[1].textContent) - 1;
+    ev.target.parentNode.parentNode.children[1].textContent = newValue;
+
+    if(newValue <= 1) {
+        ev.target.disabled = true;
+    }
+
+    let price = parseFloat(ev.target.parentNode.parentNode.children[2].textContent.replace(",", "."))
+    ev.target.parentNode.parentNode.children[3].textContent = Math.ceil(price * newValue * 100) / 100;
+
+    const totalCost = document.querySelector('#totalCost');
+
+    totalCost.textContent = Math.ceil((parseFloat(totalCost.textContent.replace(",", ".")) - price) * 100) / 100;
+
+    document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=None; Secure`;
+}
+
 function setCookie(name) {
     const date = new Date();
     date.setTime(date.getTime() + (3 * 60 * 60 * 1000));
@@ -34,45 +77,3 @@ function getValueOfCookie(name) {
 
     return 0;
 }
-
-//function displayAllCookies() {
-//    if (window.location.href === "https://localhost:7180/Home/Basket") {
-
-//        const cDecode = decodeURIComponent(document.cookie);
-//        const cArray = cDecode.split('; ');
-
-//        const table = document.getElementById('basket');
-
-//        cArray.forEach(element => {
-//            if (element) {
-//                const data = element.split('=');
-
-//                let isKit = data[0] > 1000;
-//                let amount = data[1];
-//                let id;
-//                let shortDescription;
-
-//                if (isKit) {
-//                    id = data[0] - 1000;
-//                    shortDescription = "Kit";
-//                }
-//                else {
-//                    id = data[0];
-//                    shortDescription = "Sweetness";
-//                }
-
-//                var row = `<tr> 
-//                            <td>Product, id: ${id}</td>
-//                            <td>${amount}</td>
-//                            <td>Price</td>
-//                            <td>TotalPrice</td>
-//                            <td>${shortDescription}</td>
-//                            <td>Delete</td>
-//                           </tr>`;
-
-//                table.innerHTML += row;
-                
-//            }
-//        })
-//    }
-//}

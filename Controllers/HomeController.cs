@@ -49,6 +49,7 @@ namespace CandyShop.Controllers
         public ActionResult Basket()
         {
             var allCookies = Request.Cookies;
+            decimal totalPrice = 0;
 
             if (allCookies.Count > 0)
             {
@@ -62,7 +63,7 @@ namespace CandyShop.Controllers
                     string name;
                     string kit;
                     decimal price;
-                    decimal totalPrice;
+                    decimal sumPrice;
                     string link;
                         
                     if(id > 1000)
@@ -73,8 +74,10 @@ namespace CandyShop.Controllers
                         kit = "Kit";
                         name = myKit.Name;
                         price = myKit.CurrentPrice;
-                        totalPrice = price * amount;
+                        sumPrice = price * amount;
                         link = "https://localhost:7180/Kits/Details/" + id;
+
+                        totalPrice += sumPrice;
                     }
                     else
                     {
@@ -83,13 +86,17 @@ namespace CandyShop.Controllers
                         kit = "Sweetness";
                         name = mySweetness.Name;
                         price = mySweetness.CurrentPrice;
-                        totalPrice = price * amount;
+                        sumPrice = price * amount;
                         link = "https://localhost:7180/Sweets/Details/" + id;
+
+                        totalPrice += sumPrice;
                     }
                         
-                    ViewData[cookie.Key] = cookie.Value + ";" + kit + ";" + name + ";" + price + ";" + totalPrice + ";" + link;
+                    ViewData[cookie.Key] = cookie.Value + ";" + kit + ";" + name + ";" + price + ";" + sumPrice + ";" + link;
                 }
             }
+
+            ViewData["totalCost"] = totalPrice;
 
             return View();
         }
