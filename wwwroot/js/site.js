@@ -2,7 +2,6 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-
 function addOneProduct(ev, name) {
     let amount = parseInt(ev.target.parentNode.parentNode.children[1].textContent);
 
@@ -14,10 +13,6 @@ function addOneProduct(ev, name) {
 
     let price = parseFloat(ev.target.parentNode.parentNode.children[2].textContent.replace(",", "."))
     ev.target.parentNode.parentNode.children[3].textContent = (Math.round(price * newValue * 100) / 100).toFixed(2);
-
-    console.log(price);
-    console.log(newValue);
-    console.log((price * newValue * 100));
 
     const totalCost = document.querySelector('#totalCost');
     totalCost.textContent = (Math.round((parseFloat(totalCost.textContent.replace(",", ".")) + price) * 100) / 100).toFixed(2);

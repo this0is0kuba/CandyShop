@@ -56,14 +56,91 @@ namespace CandyShop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ExecutionDate,TotalCost,isSent,FirstName,LastName,ContactEmail,PhoneNumber,StreetName,BuildingNumber,HomeNumber,Country,PostalCode")] Order order)
+        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,ContactEmail,PhoneNumber,StreetName,BuildingNumber,HomeNumber,Country,PostalCode")] Order order)
         {
             if (ModelState.IsValid)
             {
+                order.ExecutionDate = DateTime.Now;
+                order.isSent = false;
+                order.TotalCost = 0;
+
                 _context.Add(order);
+                await _context.SaveChangesAsync();
+
+                //delete cookies
+
+                var allCookies = Request.Cookies;
+                decimal totalPrice = 0;
+
+                if (allCookies.Count > 0)
+                {
+                    foreach (var cookie in allCookies)
+                    {
+                        if (cookie.Key.Equals(".AspNetCore.Antiforgery.o3MzoDseqwg"))
+                            continue;
+
+                        int id = Convert.ToInt32(cookie.Key);
+                        int amount = Convert.ToInt32(cookie.Value);
+                        string name;
+                        string kit;
+                        decimal price;
+                        decimal sumPrice;
+                        string link;
+
+                        if (id > 1000)
+                        {
+                            id = id - 1000;
+                            var myKit = _context.Kits.First(k => k.ID == id);
+
+                            kit = "Kit";
+                            name = myKit.Name;
+                            price = myKit.CurrentPrice;
+                            sumPrice = price * amount;
+                            link = "https://localhost:7180/Kits/Details/" + id;
+
+                            totalPrice += sumPrice;
+
+
+                            var kitsOnly = new KitsOnly()
+                            {
+                                KitID = id,
+                                Quantity = amount,
+                                OrderID = order.ID
+                            };
+                            _context.Add(kitsOnly);
+
+                        }
+                        else
+                        {
+                            var mySweetness = _context.Sweets.First(s => s.ID == id);
+
+                            kit = "Sweetness";
+                            name = mySweetness.Name;
+                            price = mySweetness.CurrentPrice;
+                            sumPrice = price * amount;
+                            link = "https://localhost:7180/Sweets/Details/" + id;
+
+                            totalPrice += sumPrice;
+
+
+                            var sweetsOnly = new SweetsOnly()
+                            {
+                                SweetnessID = id,
+                                Quantity = amount,
+                                OrderID = order.ID
+                            };
+                            _context.Add(sweetsOnly);
+                        }
+
+                        Response.Cookies.Delete(cookie.Key);
+                    }
+                }
+
+                _context.Orders.First(o => order.ID == o.ID).TotalCost = totalPrice;
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(order);
         }
 
