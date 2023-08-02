@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CandyShop.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230623193454_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230802141049_InitialConfiguration")]
+    partial class InitialConfiguration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,6 +52,26 @@ namespace CandyShop.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Kits");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            CurrentPrice = 10m,
+                            Description = "Wonderful box of lollipops.",
+                            Discount = 0,
+                            Name = "Lollipop Box",
+                            StockLevel = 80
+                        },
+                        new
+                        {
+                            ID = 2,
+                            CurrentPrice = 15m,
+                            Description = "Wonderful box of gummy candies.",
+                            Discount = 0,
+                            Name = "Gummy Candy Box",
+                            StockLevel = 4
+                        });
                 });
 
             modelBuilder.Entity("CandyShop.Models.DBModels.KitContent", b =>
@@ -62,7 +82,7 @@ namespace CandyShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("KitId")
+                    b.Property<int>("KitID")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -73,11 +93,55 @@ namespace CandyShop.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("KitId");
+                    b.HasIndex("KitID");
 
                     b.HasIndex("SweetnessID");
 
                     b.ToTable("KitContent");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            KitID = 1,
+                            Quantity = 2,
+                            SweetnessID = 1
+                        },
+                        new
+                        {
+                            ID = 2,
+                            KitID = 1,
+                            Quantity = 2,
+                            SweetnessID = 2
+                        },
+                        new
+                        {
+                            ID = 3,
+                            KitID = 1,
+                            Quantity = 2,
+                            SweetnessID = 3
+                        },
+                        new
+                        {
+                            ID = 4,
+                            KitID = 2,
+                            Quantity = 15,
+                            SweetnessID = 6
+                        },
+                        new
+                        {
+                            ID = 5,
+                            KitID = 2,
+                            Quantity = 15,
+                            SweetnessID = 7
+                        },
+                        new
+                        {
+                            ID = 6,
+                            KitID = 2,
+                            Quantity = 15,
+                            SweetnessID = 8
+                        });
                 });
 
             modelBuilder.Entity("CandyShop.Models.DBModels.KitsOnly", b =>
@@ -199,6 +263,164 @@ namespace CandyShop.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Sweets");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            CategoryName = 2,
+                            CurrentPrice = 2m,
+                            Description = "Lollipop with an amazing strawberry flavor.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "Strawberry Lollipop",
+                            StockLevel = 100
+                        },
+                        new
+                        {
+                            ID = 2,
+                            CategoryName = 2,
+                            CurrentPrice = 3m,
+                            Description = "Lollipop with an amazing smurf flavor.",
+                            Discount = 0,
+                            IsGluten = true,
+                            IsVegan = false,
+                            Name = "Smurf Lollipop",
+                            StockLevel = 600
+                        },
+                        new
+                        {
+                            ID = 3,
+                            CategoryName = 2,
+                            CurrentPrice = 2m,
+                            Description = "Lollipop with an amazing orange flavor.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "Orange Lollipop",
+                            StockLevel = 100
+                        },
+                        new
+                        {
+                            ID = 4,
+                            CategoryName = 2,
+                            CurrentPrice = 2m,
+                            Description = "Lollipop with an amazing watermelon flavor.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "Watermelon Lollipop",
+                            StockLevel = 100
+                        },
+                        new
+                        {
+                            ID = 5,
+                            CategoryName = 2,
+                            CurrentPrice = 3m,
+                            Description = "Lollipop with an amazing bubblegum flavor.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "BubbleGum Lollipop",
+                            StockLevel = 600
+                        },
+                        new
+                        {
+                            ID = 6,
+                            CategoryName = 1,
+                            CurrentPrice = 0.5m,
+                            Description = "Gummy candy with an amazing bubblegum flavor.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "BubbleGum Gummy Candy",
+                            StockLevel = 1000
+                        },
+                        new
+                        {
+                            ID = 7,
+                            CategoryName = 1,
+                            CurrentPrice = 0.5m,
+                            Description = "Gummy candy with an amazing orange flavor.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "Orange Gummy Candy",
+                            StockLevel = 2000
+                        },
+                        new
+                        {
+                            ID = 8,
+                            CategoryName = 1,
+                            CurrentPrice = 0.5m,
+                            Description = "Gumy candy with an amazing strawberry flavor.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "Strawberry Gummy Candy",
+                            StockLevel = 30
+                        },
+                        new
+                        {
+                            ID = 9,
+                            CategoryName = 3,
+                            CurrentPrice = 0.5m,
+                            Description = "Amazing white chocolate.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "White Chocolate Candy",
+                            StockLevel = 30
+                        },
+                        new
+                        {
+                            ID = 10,
+                            CategoryName = 3,
+                            CurrentPrice = 0.5m,
+                            Description = "Amazing black chocolate.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "Black Chocolate Candy",
+                            StockLevel = 3000
+                        },
+                        new
+                        {
+                            ID = 11,
+                            CategoryName = 3,
+                            CurrentPrice = 0.5m,
+                            Description = "Amazing strawberry chocolate.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "Strawberry Chocolate Candy",
+                            StockLevel = 80
+                        },
+                        new
+                        {
+                            ID = 12,
+                            CategoryName = 3,
+                            CurrentPrice = 0.5m,
+                            Description = "Amazing orange chocolate.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "Orange Chocolate Candy",
+                            StockLevel = 300
+                        },
+                        new
+                        {
+                            ID = 13,
+                            CategoryName = 3,
+                            CurrentPrice = 1m,
+                            Description = "amazing toffee chocolate.",
+                            Discount = 0,
+                            IsGluten = false,
+                            IsVegan = true,
+                            Name = "Toffee Chocolate Candy",
+                            StockLevel = 300
+                        });
                 });
 
             modelBuilder.Entity("CandyShop.Models.DBModels.SweetsOnly", b =>
@@ -231,12 +453,12 @@ namespace CandyShop.Migrations
                 {
                     b.HasOne("CandyShop.Models.DBModels.Kit", "Kit")
                         .WithMany("KitContents")
-                        .HasForeignKey("KitId")
+                        .HasForeignKey("KitID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CandyShop.Models.DBModels.Sweetness", "Sweetness")
-                        .WithMany("kitContents")
+                        .WithMany("KitContents")
                         .HasForeignKey("SweetnessID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -274,7 +496,7 @@ namespace CandyShop.Migrations
                         .IsRequired();
 
                     b.HasOne("CandyShop.Models.DBModels.Sweetness", "Sweetness")
-                        .WithMany("sweetsOnly")
+                        .WithMany("SweetsOnly")
                         .HasForeignKey("SweetnessID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -300,9 +522,9 @@ namespace CandyShop.Migrations
 
             modelBuilder.Entity("CandyShop.Models.DBModels.Sweetness", b =>
                 {
-                    b.Navigation("kitContents");
+                    b.Navigation("KitContents");
 
-                    b.Navigation("sweetsOnly");
+                    b.Navigation("SweetsOnly");
                 });
 #pragma warning restore 612, 618
         }

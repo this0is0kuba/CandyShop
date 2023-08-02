@@ -16,8 +16,8 @@ namespace CandyShop.Models.DBModels
         public CategoryName CategoryName { get; set; }
 
         //Relationships
-        public ICollection<KitContent> kitContents { get; set; } = new List<KitContent>();
-        public ICollection<SweetsOnly> sweetsOnly { get; set; } = new List<SweetsOnly>();
+        public ICollection<KitContent> KitContents { get; set; } = new List<KitContent>();
+        public ICollection<SweetsOnly> SweetsOnly { get; set; } = new List<SweetsOnly>();
 
         public Sweetness() { }
 

@@ -7,7 +7,8 @@
     {
         <div class="product">
             <a href="@Url.Action("Details", "Kits", new {id = item.ID})">
-                <div class="photo">
+                <div class="photo justify-content-center align-items-center d-flex">
+                    <img src="~/Images/Kits/kit_@(item.ID).jpg" alt="A beautiful image" width="140">
                 </div>
             </a>
             <div class="text-center">
