@@ -12,10 +12,10 @@ function addOneProduct(ev, name) {
         ev.target.parentNode.children[1].disabled = false;
 
     let price = parseFloat(ev.target.parentNode.parentNode.children[2].textContent.replace(",", "."))
-    ev.target.parentNode.parentNode.children[3].textContent = (Math.round(price * newValue * 100) / 100).toFixed(2);
+    ev.target.parentNode.parentNode.children[3].textContent = (Math.round(price * newValue * 100) / 100).toFixed(2).toString().replace('.', ',');
 
     const totalCost = document.querySelector('#totalCost');
-    totalCost.textContent = (Math.round((parseFloat(totalCost.textContent.replace(",", ".")) + price) * 100) / 100).toFixed(2);
+    totalCost.textContent = (Math.round((parseFloat(totalCost.textContent.replace(",", ".")) + price) * 100) / 100).toFixed(2).toString().replace('.', ',') + " $";
 
     setCookie(name);
 }
@@ -37,11 +37,11 @@ function removeOneProduct(ev, name) {
     }
 
     let price = parseFloat(ev.target.parentNode.parentNode.children[2].textContent.replace(",", "."))
-    ev.target.parentNode.parentNode.children[3].textContent = (Math.round(price * newValue * 100) / 100).toFixed(2);
+    ev.target.parentNode.parentNode.children[3].textContent = (Math.round(price * newValue * 100) / 100).toFixed(2).toString().replace('.', ',');
 
     const totalCost = document.querySelector('#totalCost');
 
-    totalCost.textContent = (Math.round((parseFloat(totalCost.textContent.replace(",", ".")) - price) * 100) / 100).toFixed(2);
+    totalCost.textContent = (Math.round((parseFloat(totalCost.textContent.replace(",", ".")) - price) * 100) / 100).toFixed(2).toString().replace('.', ',') + " $";
 
     document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=None; Secure`;
 }
