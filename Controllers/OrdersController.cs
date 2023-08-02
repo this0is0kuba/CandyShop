@@ -81,23 +81,16 @@ namespace CandyShop.Controllers
 
                         int id = Convert.ToInt32(cookie.Key);
                         int amount = Convert.ToInt32(cookie.Value);
-                        string name;
-                        string kit;
                         decimal price;
                         decimal sumPrice;
-                        string link;
 
                         if (id > 1000)
                         {
                             id = id - 1000;
                             var myKit = _context.Kits.First(k => k.ID == id);
 
-                            kit = "Kit";
-                            name = myKit.Name;
                             price = myKit.CurrentPrice;
                             sumPrice = price * amount;
-                            link = "https://localhost:7180/Kits/Details/" + id;
-
                             totalPrice += sumPrice;
 
 
@@ -114,12 +107,8 @@ namespace CandyShop.Controllers
                         {
                             var mySweetness = _context.Sweets.First(s => s.ID == id);
 
-                            kit = "Sweetness";
-                            name = mySweetness.Name;
                             price = mySweetness.CurrentPrice;
                             sumPrice = price * amount;
-                            link = "https://localhost:7180/Sweets/Details/" + id;
-
                             totalPrice += sumPrice;
 
 
@@ -138,7 +127,7 @@ namespace CandyShop.Controllers
 
                 _context.Orders.First(o => order.ID == o.ID).TotalCost = totalPrice;
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Basket", "Home");
             }
 
             return View(order);
