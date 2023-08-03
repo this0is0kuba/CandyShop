@@ -4,7 +4,7 @@ products. The application stores user preferences and selected products using co
 Customers can easily search and browse products on the web pages and check details of the products by clicking on them. 
 Server communicates with database and saves data there.
 
-## Examples of webiste images:
+## Sample website images:
 |                                           |                                            |
 | ----------------------------------------- |--------------------------------------------|
 |<img src="Images/image_1.png" width="500"> | <img src="Images/image_3.png" width="500"> |
